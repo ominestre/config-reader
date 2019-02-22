@@ -5,12 +5,30 @@ const configModule = require('../reader');
 
 describe('MODULE: Config File Reader', () => {
   const desiredResults = {
-    'level-1-dir': {
-      'level-2-dir-1': {},
-      'level-2-dir-2': {
-        'level-3-dir': {},
+    topObject: {
+      nestedObject: {
+        someText: 'foo',
+        someLogic: false,
+        someMath: 35,
+        someList: [
+          'foo',
+          'bar',
+          'baz',
+        ],
       },
+      emptySiblingObject: {},
     },
+    topArray: [
+      'foo',
+      'bar',
+      'baz',
+    ],
+    topArrayOfObjects: [
+      { foo: 'foo', bar: 'bar', baz: 'baz' },
+      { foo: 'bar', bar: 'baz', baz: 'foo' },
+    ],
+    topInt: 9,
+    topBoolean: true,
   };
 
   it('Should read a yml file and return a matching config object', () => {
@@ -37,5 +55,11 @@ describe('MODULE: Config File Reader', () => {
     assert.throws(() => {
       configModule.getConfig(configFile);
     }, 'Configuration file should be .yaml .yml or .json');
+  });
+
+  it('Should throw an exception when an absolute path cannot be resolved to a valid file', () => {
+    assert.throws(() => {
+      configModule.getConfig('this/is/a/bad/path.json');
+    }, 'ENOENT: no such file or directory');
   });
 });
