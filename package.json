@@ -1,5 +1,5 @@
 {
-  "name": "config-reader",
+  "name": "@ominestre/config-reader",
   "version": "1.0.0",
   "description": "Node module for reading JSON or YAML config and returning a Plain Ol' JavaScript Object.",
   "main": "reader.js",
